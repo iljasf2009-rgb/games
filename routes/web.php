@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::get('games', [App\Http\Controllers\GameController::class, 'index']);{
     return view('welcome');
-});
+};
