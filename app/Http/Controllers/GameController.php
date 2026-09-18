@@ -13,6 +13,13 @@ class GameController extends Controller
     return view('games.index', compact('games'));
 }
 
+public function destroy($id)
+{
+    $game = Game::find($id);
+    $game->delete();
+    return redirect('/games');
+}
+
 public function create()
 {
     return view('games.create');
