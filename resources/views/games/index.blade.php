@@ -30,6 +30,7 @@
                     <td>{{ $game->rating }}/10</td>
                     <td>
                         <a href="/games/edit/{{ $game->id }}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{{ route('games.show', $game->id) }}">Show</a>
                     </td>
                     <td>
                         <form action="/games/destroy/{{ $game->id }}" method="POST">

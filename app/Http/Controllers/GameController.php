@@ -25,6 +25,12 @@ public function create()
     return view('games.create');
 }
 
+public function show($id)
+{
+    $game = Game::findOrFail($id);
+    return view('games.show', compact('game'));
+}
+
 public function store(Request $request)
 {
     $request->validate([
