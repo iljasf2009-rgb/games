@@ -12,13 +12,13 @@ Route::get('/', function () {
 Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/show/{id}', [GameController::class, 'show'])->name('games.show');
 
-// Beveiligde game routes (alleen voor ingelogde gebruikers)
-Route::middleware('auth')->group(function () {
-    Route::get('/games/create', [GameController::class, 'create']);
-    Route::post('/games/store', [GameController::class, 'store']);
-    Route::get('/games/edit/{id}', [GameController::class, 'edit']);
-    Route::post('/games/update/{id}', [GameController::class, 'update']);
-    Route::post('/games/destroy/{id}', [GameController::class, 'destroy']);
+// Beveiligde game routes voor Admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
+    Route::post('/games/store', [GameController::class, 'store'])->name('games.store');
+    Route::get('/games/edit/{id}', [GameController::class, 'edit'])->name('games.edit');
+    Route::post('/games/update/{id}', [GameController::class, 'update'])->name('games.update');
+    Route::post('/games/destroy/{id}', [GameController::class, 'destroy'])->name('games.destroy');
     
     Route::get('/geheim', function () {
         return view('geheim');
