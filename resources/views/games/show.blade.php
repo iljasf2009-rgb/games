@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1>{{ $game->name }}</h1>
+    <h1>{{ $game->game_name }}</h1>
 
     <ul>
         <li><strong>Platform:</strong> {{ $game->platform }}</li>

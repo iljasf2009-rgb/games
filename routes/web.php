@@ -8,17 +8,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Publieke game routes (iedereen mag kijken)
-Route::get('/games', [GameController::class, 'index'])->name('games.index');
-Route::get('/games/show/{id}', [GameController::class, 'show'])->name('games.show');
+// Klanten en admins mogen het overzicht bekijken.
+Route::middleware(['auth', 'role:admin|klant'])->group(function () {
+    Route::get('/games', [GameController::class, 'index'])->name('games.index');
+});
 
-// Beveiligde game routes voor Admin
+// Alleen admins mogen game-details bekijken en games beheren.
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/games/show/{id}', [GameController::class, 'show'])->name('games.show');
     Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
     Route::post('/games/store', [GameController::class, 'store'])->name('games.store');
     Route::get('/games/edit/{id}', [GameController::class, 'edit'])->name('games.edit');
     Route::post('/games/update/{id}', [GameController::class, 'update'])->name('games.update');
-    Route::post('/games/destroy/{id}', [GameController::class, 'destroy'])->name('games.destroy');
+    Route::delete('/games/delete/{id}', [GameController::class, 'destroy'])->name('games.destroy');
     
     Route::get('/geheim', function () {
         return view('geheim');
